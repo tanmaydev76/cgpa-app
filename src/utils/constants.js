@@ -21,11 +21,11 @@ export const GRADE_COLORS = {
 }
 
 export const GRADE_STYLES = {
-  O:    { background: 'rgba(52,199,89,0.12)',  color: '#1a7a3a' },
-  'A+': { background: 'rgba(0,122,255,0.10)',  color: '#0055b3' },
-  A:    { background: 'rgba(88,86,214,0.10)',  color: '#3d3a9e' },
-  'B+': { background: 'rgba(90,200,250,0.12)', color: '#0079a8' },
-  B:    { background: 'rgba(255,149,0,0.10)',  color: '#b86800' },
-  C:    { background: 'rgba(255,59,48,0.08)',  color: '#c0281e' },
-  F:    { background: 'rgba(142,142,147,0.10)',color: '#636366' },
+  O:    { background: 'var(--grade-O-bg)',     color: 'var(--grade-O-fg)'     },
+  'A+': { background: 'var(--grade-Aplus-bg)', color: 'var(--grade-Aplus-fg)' },
+  A:    { background: 'var(--grade-A-bg)',     color: 'var(--grade-A-fg)'     },
+  'B+': { background: 'var(--grade-Bplus-bg)', color: 'var(--grade-Bplus-fg)' },
+  B:    { background: 'var(--grade-B-bg)',     color: 'var(--grade-B-fg)'     },
+  C:    { background: 'var(--grade-C-bg)',     color: 'var(--grade-C-fg)'     },
+  F:    { background: 'var(--grade-F-bg)',     color: 'var(--grade-F-fg)'     },
 }

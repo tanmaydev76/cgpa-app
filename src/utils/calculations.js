@@ -24,12 +24,13 @@ export function calcFinalCGPA(prevCGPA, prevCredits, newCGPA, newCredits) {
  * Return colour + label based on CGPA value.
  */
 export function getCGPAMeta(cgpa) {
-  if (cgpa >= 9) return { color: '#1a7a3a', label: 'Outstanding'  }
-  if (cgpa >= 8) return { color: '#0055b3', label: 'Excellent'    }
-  if (cgpa >= 7) return { color: '#3d3a9e', label: 'Very Good'    }
-  if (cgpa >= 6) return { color: '#b86800', label: 'Good'         }
-  if (cgpa > 0)  return { color: '#c0281e', label: 'Satisfactory' }
-  return               { color: '#8e8e93', label: 'No data yet'   }
+  // Colors reference CSS variables so they adapt to both light and dark themes.
+  if (cgpa >= 9) return { color: 'var(--cgpa-outstanding)',  label: 'Outstanding'  }
+  if (cgpa >= 8) return { color: 'var(--cgpa-excellent)',    label: 'Excellent'    }
+  if (cgpa >= 7) return { color: 'var(--cgpa-verygood)',     label: 'Very Good'    }
+  if (cgpa >= 6) return { color: 'var(--cgpa-good)',         label: 'Good'         }
+  if (cgpa > 0)  return { color: 'var(--cgpa-satisfactory)', label: 'Satisfactory' }
+  return               { color: 'var(--cgpa-nodata)',        label: 'No data yet'  }
 }
 
 /** Simple incrementing UID */

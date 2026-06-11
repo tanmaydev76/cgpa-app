@@ -6,6 +6,7 @@ import CGPACard     from './components/CGPACard'
 import Toast        from './components/Toast'
 import { calcStats, uid } from './utils/calculations'
 import { useToast } from './hooks/useToast'
+import { useTheme } from './hooks/useTheme'
 
 export default function App() {
   const [subjects,    setSubjects]    = useState([])
@@ -14,6 +15,7 @@ export default function App() {
   const [prevCGPA,    setPrevCGPA]    = useState('')
   const [prevCredits, setPrevCredits] = useState('')
   const { toasts, toast }             = useToast()
+  const { theme, toggle: toggleTheme } = useTheme()
 
   const handleSubmit = (data) => {
     if (editing) {
@@ -43,7 +45,7 @@ export default function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar theme={theme} onToggleTheme={toggleTheme} />
 
       <main className="page-main">
         {/* Header */}

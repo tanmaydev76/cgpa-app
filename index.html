@@ -12,6 +12,25 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <!--
+      Theme bootstrap: runs synchronously before first paint to eliminate FOUC.
+      Priority: localStorage → system preference → light fallback.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('cgpa-theme');
+          var preferred = stored
+            ? stored
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+          document.documentElement.setAttribute('data-theme', preferred);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
