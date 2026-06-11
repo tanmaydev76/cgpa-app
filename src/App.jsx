@@ -15,10 +15,9 @@ export default function App() {
   const [prevCredits, setPrevCredits] = useState('')
   const { toasts, toast }             = useToast()
 
-  /* ── Handlers ── */
   const handleSubmit = (data) => {
     if (editing) {
-      setSubjects(s => s.map(x => (x.id === editing.id ? { ...data, id: x.id } : x)))
+      setSubjects(s => s.map(x => x.id === editing.id ? { ...data, id: x.id } : x))
       toast('Subject updated!')
       setEditing(null)
     } else {
@@ -42,51 +41,29 @@ export default function App() {
 
   const stats = calcStats(subjects)
 
-  /* ── Render ── */
   return (
     <>
       <Navbar />
 
-      <main
-        style={{
-          maxWidth: 900,
-          margin: '0 auto',
-          padding: '28px 20px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-        }}
-      >
-        {/* Header row */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div>
-            <h2
-              style={{
-                fontFamily: "'Syne', sans-serif",
-                fontWeight: 800,
-                fontSize: 22,
-                color: '#f1f5f9',
-              }}
-            >
-              My Subjects
-            </h2>
-            <p style={{ color: '#64748b', fontSize: 13, marginTop: 2 }}>
-              Track courses and calculate CGPA in real time
-            </p>
+      <main className="page-main">
+        {/* Header */}
+        <div className="page-header">
+          <div className="page-header-text">
+            <h2>My Subjects</h2>
+            <p>Track courses and calculate your CGPA in real time</p>
           </div>
-
           {!showForm && (
             <button
               className="btn-primary"
-              style={{ display: 'flex', alignItems: 'center', gap: 6 }}
               onClick={() => { setEditing(null); setShowForm(true) }}
             >
-              <span style={{ fontSize: 18, lineHeight: 1 }}>+</span> Add Subject
+              <span style={{ fontSize: 16, lineHeight: 1 }}>+</span>
+              Add Subject
             </button>
           )}
         </div>
 
-        {/* Stats + Previous / Final CGPA */}
+        {/* Stats */}
         <CGPACard
           {...stats}
           subjectCount={subjects.length}
@@ -96,7 +73,7 @@ export default function App() {
           setPrevCredits={setPrevCredits}
         />
 
-        {/* Add / Edit form */}
+        {/* Form */}
         {showForm && (
           <SubjectForm
             onSubmit={handleSubmit}
@@ -105,7 +82,7 @@ export default function App() {
           />
         )}
 
-        {/* Subject list grouped by semester */}
+        {/* Table */}
         <SubjectTable subjects={subjects} onEdit={handleEdit} onDelete={handleDelete} />
       </main>
 

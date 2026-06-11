@@ -1,9 +1,5 @@
 import { getCGPAMeta, calcFinalCGPA } from '../utils/calculations'
 
-/**
- * CGPACard — shows stats (CGPA, credits, points, subjects) plus
- * Previous CGPA / Previous Credits inputs and Final CGPA output.
- */
 export default function CGPACard({
   cgpa,
   totalCredits,
@@ -16,106 +12,91 @@ export default function CGPACard({
 }) {
   const { color, label } = getCGPAMeta(cgpa)
 
-  const finalCGPA = calcFinalCGPA(
-    parseFloat(prevCGPA) || 0,
-    parseFloat(prevCredits) || 0,
-    cgpa,
-    totalCredits
-  )
+  const pCGPA = parseFloat(prevCGPA) || 0
+  const pCr   = parseFloat(prevCredits) || 0
+  const finalCGPA = calcFinalCGPA(pCGPA, pCr, cgpa, totalCredits)
   const { color: fc } = getCGPAMeta(finalCGPA)
+  const showFinal = cgpa > 0 || (pCGPA > 0 && pCr > 0)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {/* Stats row */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-          gap: 12,
-        }}
-      >
-        {/* Current CGPA */}
-        <div className="stat-card" style={{ border: `1px solid ${color}33` }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+
+      {/* ── Stat cards ── */}
+      <div className="stats-grid">
+        {/* CGPA */}
+        <div className="stat-card" style={{ borderColor: `${color}28` }}>
           <p className="stat-label">Current CGPA</p>
-          <p className="stat-val" style={{ color, fontSize: '2.4rem' }}>
-            {cgpa > 0 ? cgpa.toFixed(2) : '–'}
+          <p className="stat-val" style={{ color, fontSize: '2.2rem' }}>
+            {cgpa > 0 ? cgpa.toFixed(2) : '—'}
           </p>
-          <p style={{ fontSize: 11, color, fontWeight: 600 }}>{label}</p>
+          <p className="stat-sub" style={{ color, opacity: 0.9, fontWeight: 600 }}>{label}</p>
         </div>
 
         <div className="stat-card">
           <p className="stat-label">Total Credits</p>
-          <p className="stat-val">{totalCredits}</p>
-          <p style={{ fontSize: 11, color: '#64748b' }}>enrolled</p>
+          <p className="stat-val">{totalCredits || '—'}</p>
+          <p className="stat-sub">enrolled</p>
         </div>
 
         <div className="stat-card">
           <p className="stat-label">Grade Points</p>
-          <p className="stat-val">{earnedPoints}</p>
-          <p style={{ fontSize: 11, color: '#64748b' }}>pts × credits</p>
+          <p className="stat-val">{earnedPoints || '—'}</p>
+          <p className="stat-sub">weighted sum</p>
         </div>
 
         <div className="stat-card">
           <p className="stat-label">Subjects</p>
-          <p className="stat-val">{subjectCount}</p>
-          <p style={{ fontSize: 11, color: '#64748b' }}>added</p>
+          <p className="stat-val">{subjectCount || '—'}</p>
+          <p className="stat-sub">added</p>
         </div>
       </div>
 
-      {/* Previous CGPA / Final CGPA row */}
+      {/* ── Previous CGPA section ── */}
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 12,
-          alignItems: 'end',
-        }}
+        className="card"
+        style={{ padding: '18px 20px' }}
       >
-        <div>
-          <label className="label">Previous CGPA</label>
-          <input
-            className="inp"
-            type="number"
-            placeholder="e.g. 8.50"
-            value={prevCGPA}
-            onChange={e => setPrevCGPA(e.target.value)}
-            min="0"
-            max="10"
-            step="0.01"
-          />
-        </div>
+        <p style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: 14 }}>
+          Cumulative CGPA (combine with previous semesters)
+        </p>
+        <div className="prev-cgpa-row">
+          <div>
+            <label className="label">Previous CGPA</label>
+            <input
+              className="inp"
+              type="number"
+              placeholder="e.g. 8.50"
+              value={prevCGPA}
+              onChange={e => setPrevCGPA(e.target.value)}
+              min="0"
+              max="10"
+              step="0.01"
+            />
+          </div>
 
-        <div>
-          <label className="label">Previous Credits</label>
-          <input
-            className="inp"
-            type="number"
-            placeholder="e.g. 60"
-            value={prevCredits}
-            onChange={e => setPrevCredits(e.target.value)}
-            min="0"
-            step="1"
-          />
-        </div>
+          <div>
+            <label className="label">Previous Credits</label>
+            <input
+              className="inp"
+              type="number"
+              placeholder="e.g. 60"
+              value={prevCredits}
+              onChange={e => setPrevCredits(e.target.value)}
+              min="0"
+              step="1"
+            />
+          </div>
 
-        <div className="stat-card" style={{ border: `1px solid ${fc}44`, padding: '12px 16px' }}>
-          <p className="stat-label">Final CGPA</p>
-          <p
-            style={{
-              fontSize: '1.8rem',
-              fontWeight: 800,
-              color: fc,
-              fontFamily: "'Syne', sans-serif",
-              lineHeight: 1,
-            }}
-          >
-            {parseFloat(prevCGPA) || parseFloat(prevCredits) || cgpa > 0
-              ? finalCGPA.toFixed(2)
-              : '–'}
-          </p>
-          <p style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>combined</p>
+          <div className="stat-card final-cgpa-card" style={{ borderColor: `${fc}30`, padding: '14px 16px' }}>
+            <p className="stat-label">Final CGPA</p>
+            <p style={{ fontSize: '1.75rem', fontWeight: 800, color: fc, letterSpacing: '-0.03em', lineHeight: 1 }}>
+              {showFinal ? finalCGPA.toFixed(2) : '—'}
+            </p>
+            <p className="stat-sub">combined</p>
+          </div>
         </div>
       </div>
+
     </div>
   )
 }

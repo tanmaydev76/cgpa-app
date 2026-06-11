@@ -21,11 +21,11 @@ export const GRADE_COLORS = {
 }
 
 export const GRADE_STYLES = {
-  O:    { background: 'rgba(6,78,59,0.4)',    color: '#6ee7b7', borderColor: 'rgba(6,95,70,0.5)'     },
-  'A+': { background: 'rgba(67,56,202,0.3)',  color: '#a5b4fc', borderColor: 'rgba(99,102,241,0.5)'  },
-  A:    { background: 'rgba(12,74,110,0.4)',  color: '#7dd3fc', borderColor: 'rgba(14,116,144,0.5)'  },
-  'B+': { background: 'rgba(30,58,138,0.4)',  color: '#93c5fd', borderColor: 'rgba(59,130,246,0.4)'  },
-  B:    { background: 'rgba(113,63,18,0.4)',  color: '#fde68a', borderColor: 'rgba(202,138,4,0.4)'   },
-  C:    { background: 'rgba(154,52,18,0.4)',  color: '#fdba74', borderColor: 'rgba(234,88,12,0.4)'   },
-  F:    { background: 'rgba(127,29,29,0.4)',  color: '#fca5a5', borderColor: 'rgba(220,38,38,0.4)'   },
+  O:    { background: 'rgba(52,199,89,0.12)',  color: '#1a7a3a' },
+  'A+': { background: 'rgba(0,122,255,0.10)',  color: '#0055b3' },
+  A:    { background: 'rgba(88,86,214,0.10)',  color: '#3d3a9e' },
+  'B+': { background: 'rgba(90,200,250,0.12)', color: '#0079a8' },
+  B:    { background: 'rgba(255,149,0,0.10)',  color: '#b86800' },
+  C:    { background: 'rgba(255,59,48,0.08)',  color: '#c0281e' },
+  F:    { background: 'rgba(142,142,147,0.10)',color: '#636366' },
 }
